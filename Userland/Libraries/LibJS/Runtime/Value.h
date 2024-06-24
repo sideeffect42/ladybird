@@ -438,6 +438,9 @@ public:
 #elif ARCH(AARCH64)
         // For AArch64 the top 16 bits of the pointer should be zero.
         return static_cast<FlatPtr>(encoded & 0xffff'ffff'ffffULL);
+#elif ARCH(PPC64) || ARCH(PPC64LE)
+        // For PowerPC64 allow full 64-bit addresses.
+        return static_cast<FlatPtr>(encoded);
 #else
 #    error "Unknown architecture. Don't know whether pointers need to be sign-extended."
 #endif
